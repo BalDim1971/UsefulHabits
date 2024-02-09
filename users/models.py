@@ -1,3 +1,12 @@
-from django.db import models
+"""
+Модель пользователя для сервера привычек.
+"""
 
-# Create your models here.
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+NULLABLE = {'blank': True, 'null': True}
+
+
+class User(AbstractUser):
+    pass
