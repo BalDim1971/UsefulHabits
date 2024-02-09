@@ -126,9 +126,19 @@ https://t.me/BotFather.
 
 ## Запуск на выполнение курсовой работы
 
-Создать файл .env
+Используется Python 3.12
+Описание работ для PyCharm в Windows.
 
-Записать в файл настройки, как в .env.sample
+1. Создать и активировать виртуальное окружение.
+python -m venv venv
+.\venv\Scripts\activate
+
+2. Установить зависимости проекта, указанные в файле requirements.txt
+pip install -r requirements.txt 
+или средствами PyCharm.
+
+3. Создать файл .env.
+Записать в файл настройки, как в шаблоне .env.sample
 
 Применить миграции
 
@@ -138,6 +148,3 @@ python manage.py migrate
 Запустить сервер
 python manage.py runserver
 
-Запустить Celery
-celery -A habit_tracker worker -l INFO
-celery -A habit_tracker beat -l info
