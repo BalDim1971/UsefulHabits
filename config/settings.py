@@ -172,3 +172,4 @@ EMAIL_ADMIN = EMAIL_HOST_USER
 TG_CHAT_ID = os.getenv('TG_CHAT_ID')
 TG_BOT_TOKEN = os.getenv('TG_BOT_TOKEN')
 TG_URL = os.getenv('TG_URL')
+TG_USER_ID = os.getenv('TG_USER_ID')
