@@ -1,6 +1,8 @@
 import requests
+from celery import shared_task
 
 from config.settings import TG_URL, TG_BOT_TOKEN, TG_CHAT_ID
+from habits.models import Habits
 
 
 class MyBot:
@@ -15,3 +17,9 @@ class MyBot:
                 'text': text
             }
         )
+
+@shared_task
+def habits_bot():
+    habits = Habits.objects.all()
+    for habit in habits:
+        pass
