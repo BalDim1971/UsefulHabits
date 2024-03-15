@@ -158,3 +158,7 @@ python manage.py loaddata users_data.json
 7. Запустить сервер
 python manage.py runserver
 
+8. Для тестирования отправки выполнить
+python manage.py testn
+Эта операция формирует сообщение 'Testing Bot telegram' и отправляет его в 
+Телеграм. Настройки берутся из окружения, файла .env.

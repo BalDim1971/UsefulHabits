@@ -20,6 +20,11 @@ class MyBot:
 
 @shared_task
 def habits_bot():
+    my_bot = MyBot()
     habits = Habits.objects.all()
     for habit in habits:
-        pass
+        action = habit.action
+        time = habit.time
+        place = habit.place
+        text = f'Я должен {action} в {time} в {place}'
+        my_bot.send_message(text)

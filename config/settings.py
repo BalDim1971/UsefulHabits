@@ -162,6 +162,12 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+# Настройки срока действия токенов
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
@@ -196,10 +202,10 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 # URL-адрес брокера сообщений
 # Например, Redis, который по умолчанию работает на порту 6379
-CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL')
 
 # URL-адрес брокера результатов, также Redis
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND')
 
 # Часовой пояс для работы Celery
 CELERY_TIMEZONE = TIME_ZONE
@@ -212,7 +218,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60
 
 CELERY_BEAT_SCHEDULE = {
     'check_user_activity': {
-        'task': 'users.tasks.check_user_activity',  # Путь к задаче
+        'task': 'habits.tasks.habit_reminders',  # Путь к задаче
         'schedule': timedelta(days=1),  # Расписание выполнения задачи
     }
 }
