@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt',
     'django_filters',
     'drf_spectacular',
     'corsheaders',
+    'django_celery_beat',
     'users',
     'habits',
 ]
@@ -162,13 +164,18 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
+SPECTACULAR_SETTINGS = {
+   'TITLE': 'Полезные привычки',
+   'DESCRIPTION': 'API документация проекта Полезные привычки',
+   'VERSION': '1.0.0',
+}
 # Настройки срока действия токенов
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
@@ -230,7 +237,7 @@ if CACHE_ENABLED:
         "default": {
             "BACKEND": "django.core.cache.backends.redis.RedisCache",
             "LOCATION": os.getenv('CACHE_LOCATION'),
-            "TIMEOUT": 60 # Ручная регулировка времени жизни кеша в секундах,
+            "TIMEOUT": 60  # Ручная регулировка времени жизни кеша в секундах,
             # по умолчанию 300
         }
     }

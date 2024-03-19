@@ -18,6 +18,7 @@ class MyBot:
             }
         )
 
+
 @shared_task
 def habits_bot():
     my_bot = MyBot()
