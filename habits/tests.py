@@ -28,18 +28,18 @@ class HabitsTestCase(APITestCase):
                          )
         self.user.set_password('123QWE456RTY')
         self.user.save()
-        
+
         response = self.client.post(
             '/users/token/',
             {"email": "test@test.ru", "password": "123QWE456RTY"}
         )
-        
+
         self.access_token = response.json().get('access')
         self.client.credentials(
             HTTP_AUTHORIZATION=f'Bearer {self.access_token}'
         )
         self.headers = {'HTTP_AUTHORIZATION': f'Bearer {self.access_token}'}
-        
+
         self.habit = Habits.objects.create(
             name="Привычка тест",
             owner=self.user,
@@ -53,7 +53,7 @@ class HabitsTestCase(APITestCase):
             time_exec="00:02",
             is_public=False
         )
-    
+
     def test_create_habits(self):
         """
         Тест операции создания (create) привычки
@@ -74,10 +74,10 @@ class HabitsTestCase(APITestCase):
         create_habit = reverse('habits:habits_create')
         response = self.client.post(create_habit, data,
                                     format="json", **self.headers)
-        
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.json()['name'], data['name'])
-    
+
     def test_retrieve_habits(self):
         """
         Тест операции чтения (retrieve) привычки
@@ -85,10 +85,10 @@ class HabitsTestCase(APITestCase):
         retrieve_url = reverse('habits:habits_detail',
                                args=[self.habit.id])
         response = self.client.get(retrieve_url)
-        
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['name'], self.habit.name)
-    
+
     def test_update_habits(self):
         """
         Тест операции обновления (update) привычки
@@ -100,12 +100,12 @@ class HabitsTestCase(APITestCase):
             "place": "Сигнал",
         }
         response = self.client.patch(update_url, updated_data, format='json')
-        
+
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.habit.refresh_from_db()
         self.assertEqual(self.habit.name, updated_data['name'])
         self.assertEqual(self.habit.place, updated_data['place'])
-    
+
     def test_delete_habits(self):
         """
         Тест операции удаления (delete) привычки
@@ -113,10 +113,10 @@ class HabitsTestCase(APITestCase):
         delete_url = reverse('habits:habits_delete',
                              args=[self.habit.id])
         response = self.client.delete(delete_url)
-        
+
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Habits.objects.filter(id=self.habit.id).exists())
-    
+
     def test_list_habits(self):
         """
         Тест операции получения списка привычек
@@ -125,7 +125,7 @@ class HabitsTestCase(APITestCase):
         response = self.client.get(list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'][0]['name'], self.habit.name)
-    
+
     def test_str_habits(self):
         my_str: string = self.habit.__str__()
         self.assertEqual(my_str, "Привычка тест Начать работать")
