@@ -51,7 +51,7 @@ class HabitsTestCase(APITestCase):
             periodic=1,
             award="Съесть печеньку",
             time_exec="00:02",
-            is_public=False
+            is_public=True
         )
 
     def test_create_habits(self):
@@ -122,6 +122,15 @@ class HabitsTestCase(APITestCase):
         Тест операции получения списка привычек
         """
         list_url = reverse('habits:habits_list')
+        response = self.client.get(list_url)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data['results'][0]['name'], self.habit.name)
+
+    def test_list_public_habits(self):
+        """
+        Тест операции получения публичного списка привычек
+        """
+        list_url = reverse('habits:habits_public_list')
         response = self.client.get(list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'][0]['name'], self.habit.name)
