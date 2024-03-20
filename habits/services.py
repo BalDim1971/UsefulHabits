@@ -27,5 +27,10 @@ def habits_bot():
         action = habit.action
         time = habit.time
         place = habit.place
-        text = f'Я должен {action} в {time} в {place}'
+        time_exec = habit.time_exec
+        text = f'Я должен {action} в {time} в {place} выполнять {time_exec}'
         my_bot.send_message(text)
+        time.sleep(time_exec)
+        if habit.award is not None:
+            text = f'Вознаграждение {habit.award}'
+            my_bot.send_message(text)
