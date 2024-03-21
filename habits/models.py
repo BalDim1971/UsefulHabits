@@ -24,7 +24,7 @@ class Habits(models.Model):
     - award - Вознаграждение — чем пользователь должен себя вознаградить после
     выполнения привычки.
     - time_exec - Время на выполнение — время, которое предположительно
-    потратит пользователь на выполнение привычки.
+    потратит пользователь на выполнение привычки, в секундах(?).
     - is_public - Признак публичности — привычки можно публиковать в общий
     доступ, чтобы другие пользователи могли брать в пример чужие привычки.
     """
@@ -47,6 +47,7 @@ class Habits(models.Model):
     award = models.CharField(max_length=150, verbose_name='вознаграждение',
                              **NULLABLE)
     time_exec = models.TimeField(verbose_name='время на выполнение',
+                                 default='00:02',
                                  **NULLABLE)
     is_public = models.BooleanField(default=True,
                                     verbose_name='признак публичности')

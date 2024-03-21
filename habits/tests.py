@@ -1,7 +1,6 @@
 """
 Тесты для привычек
 """
-
 import string
 
 from django.urls import reverse
