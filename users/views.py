@@ -67,7 +67,7 @@ class UserRetrieveAPIView(generics.RetrieveAPIView):
 
 class UserListAPIView(generics.ListAPIView):
     serializer_class = UserSerializer
-    queryset = User.objects.all()
+    queryset = User.objects.all().order_by('id')
     permission_classes = [IsAuthenticated, IsModerator | IsOwner]
 
 

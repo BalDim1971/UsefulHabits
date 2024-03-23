@@ -110,9 +110,9 @@ class UsersTestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'][0]['email'], self.user.email)
 
-    def test_str_habits(self):
+    def test_str_user(self):
         """
         Тест проверки получения строки...
         """
-        my_str: string = self.user.__str__()
+        my_str = str(self.user)
         self.assertEqual(my_str, "admin@sky.pro")

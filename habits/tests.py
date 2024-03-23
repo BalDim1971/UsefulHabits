@@ -135,5 +135,5 @@ class HabitsTestCase(APITestCase):
         self.assertEqual(response.data['results'][0]['name'], self.habit.name)
 
     def test_str_habits(self):
-        my_str: string = self.habit.__str__()
+        my_str = str(self.habit)
         self.assertEqual(my_str, "Привычка тест Начать работать")

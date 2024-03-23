@@ -1,9 +1,10 @@
 from django.core.management import BaseCommand
 
+from config.settings import TG_USER_ID
 from habits.services import MyBot
 
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
         my_bot = MyBot()
-        my_bot.send_message('Testing Bot telegram')
+        my_bot.send_message(TG_USER_ID, 'Testing Bot telegram')

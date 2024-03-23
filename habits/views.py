@@ -15,16 +15,26 @@ from users.permissions import IsOwner
 
 class HabitsListView(generics.ListAPIView):
     serializer_class = HabitsListSerializer
-    queryset = Habits.objects.all()
+    queryset = Habits.objects.all().order_by('id')
     pagination_class = HabitsPagination
     filter_backends = [SearchFilter, OrderingFilter]
     search_fields = ['name', 'owner']
     ordering_fields = ['name', 'owner']
+    permission_classes = [IsAuthenticated, IsOwner]
     # filterset_fields = ['owner']
+
+    def get_queryset(self):
+        return Habits.objects.filter(owner=self.request.user).order_by('id')
 
 
 class HabitsCreateView(generics.CreateAPIView):
     serializer_class = HabitsSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        new_habit = serializer.save()
+        new_habit.user = self.request.user
+        new_habit.save()
 
 
 class HabitsDetailView(generics.RetrieveAPIView):

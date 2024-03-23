@@ -11,7 +11,7 @@ def exclude_validator(value):
         raise serializers.ValidationError('Исключён одновременный выбор '
                                           'связанной привычки и указания '
                                           'вознаграждения.')
-    if value.get('time_exec') > time(00, 2):
+    if value.get('time_exec') and value.get('time_exec') > time(00, 2):
         raise serializers.ValidationError('Время выполнения должно быть '
                                           'не больше 120 секунд.')
     if 'assoc_habit' in value and value.get('assoc_habit').is_pleasure:
@@ -22,6 +22,6 @@ def exclude_validator(value):
         raise serializers.ValidationError('У приятной привычки не может быть '
                                           'вознаграждения или связанной '
                                           'привычки.')
-    if value.get('periodic') > 7:
+    if value.get('periodic') and value.get('periodic') > 7:
         raise serializers.ValidationError('Нельзя выполнять привычку реже, '
                                           'чем 1 раз в 7 дней.')

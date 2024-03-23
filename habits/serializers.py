@@ -6,6 +6,7 @@ from rest_framework import serializers
 from rest_framework.relations import SlugRelatedField
 
 from habits.models import Habits
+from habits.validators import exclude_validator
 from users.models import User
 
 
@@ -24,6 +25,7 @@ class HabitsSerializer(serializers.ModelSerializer):
                   'time_exec',
                   'is_public'
                   ]
+        validators = [exclude_validator,]
 
 
 class HabitsListSerializer(serializers.ModelSerializer):

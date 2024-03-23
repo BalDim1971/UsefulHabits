@@ -58,3 +58,4 @@ class Habits(models.Model):
     class Meta:
         verbose_name = 'привычка'
         verbose_name_plural = 'привычки'
+        ordering = ['name', 'place', 'action']

@@ -151,14 +151,10 @@ python manage.py migrate
 5. Создать суперпользователя
 python manage.py csu
 
-6. Для тестового прогона использовать файлы habits_data.json и users_data.json:
-python manage.py loaddata habits_data.json
-python manage.py loaddata users_data.json
-
-7. Запустить сервер
+6. Запустить сервер
 python manage.py runserver
 
-8. Для тестирования отправки выполнить
+7. Для тестирования отправки выполнить
 python manage.py testn
 Эта операция формирует сообщение 'Testing Bot telegram' и отправляет его в 
 Телеграм. Настройки берутся из окружения, файла .env.
