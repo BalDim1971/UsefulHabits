@@ -40,6 +40,7 @@ class HabitsCreateView(generics.CreateAPIView):
 class HabitsDetailView(generics.RetrieveAPIView):
     serializer_class = HabitsSerializer
     queryset = Habits.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner]
 
 
 class HabitsDestroyView(generics.DestroyAPIView):
@@ -63,6 +64,7 @@ class HabitsDestroyView(generics.DestroyAPIView):
 class HabitsUpdateView(generics.UpdateAPIView):
     serializer_class = HabitsSerializer
     queryset = Habits.objects.all()
+    permission_classes = [IsAuthenticated, IsOwner]
 
 
 class PublicHabitListView(generics.ListAPIView):
